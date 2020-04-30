@@ -34,7 +34,7 @@ namespace FoodStack.Controllers
 
             if (existingUser!= null)
             {
-                return StatusCode(200, user);
+                return StatusCode(200, existingUser);
             }
             _context.Users.Add(user);
 

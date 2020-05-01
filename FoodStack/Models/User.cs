@@ -13,6 +13,16 @@ namespace FoodStack.Models
         public string  Name { get; set; }
         public string ImgUrl { get; set; }
         public string Email { get; set; }
+        public ICollection<Board> Boards { get; set;}
+
+
+        public User()
+        {
+            Boards = new List<Board>
+            {
+                new Board($"{Name} Board")
+            };
+        } 
     }
 
     public enum LoginProvider { Google}

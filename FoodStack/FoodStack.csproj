@@ -6,12 +6,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200430073050_FirstMigration.cs" />
-    <Compile Remove="Migrations\20200430073050_FirstMigration.Designer.cs" />
+    <Compile Remove="ClientApp\**" />
+    <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\**" />
+    <None Remove="ClientApp\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\" />
+    <Compile Remove="Migrations\20200430073050_FirstMigration.cs" />
+    <Compile Remove="Migrations\20200430073050_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200430083934_CreateUser.cs" />
+    <Compile Remove="Migrations\20200430083934_CreateUser.Designer.cs" />
+    <Compile Remove="Migrations\20200501093629_AddFoodAndBoard.cs" />
+    <Compile Remove="Migrations\20200501093629_AddFoodAndBoard.Designer.cs" />
+    <Compile Remove="Migrations\20200501112311_CreateDb.cs" />
+    <Compile Remove="Migrations\20200501112311_CreateDb.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

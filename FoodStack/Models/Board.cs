@@ -9,12 +9,13 @@ namespace FoodStack.Models
     {
         public Guid Id { get; set; }
         public string Name {get;set;}
-        public ICollection<Food> Food { get; set; }
+        public virtual ICollection<Food> Food { get; set; }
 
 
         public Board(string name)
         {
             this.Name = name;
+            Food = new List<Food>();
         }
     }
 }

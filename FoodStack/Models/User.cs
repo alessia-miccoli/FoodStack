@@ -13,7 +13,7 @@ namespace FoodStack.Models
         public string  Name { get; set; }
         public string ImgUrl { get; set; }
         public string Email { get; set; }
-        public ICollection<Board> Boards { get; set;}
+        public virtual ICollection<Board> Boards { get; set;}
 
 
         public User()
@@ -23,6 +23,13 @@ namespace FoodStack.Models
                 new Board($"{Name} Board")
             };
         } 
+
+
+        public void AddFood(Food food)
+        {
+            //TODO: change when will add support to multiple boards
+            Boards.FirstOrDefault().Food.Add(food);
+        }
     }
 
     public enum LoginProvider { Google}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace FoodStack.Models
         public int QuantityBooked { get; set; }
         public DateTime ExpirationDate { get; set; }
 
+        [JsonIgnore]
         public virtual Board Board { get; set; }
     }
 }

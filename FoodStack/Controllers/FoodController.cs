@@ -26,12 +26,20 @@ namespace FoodStack.Controllers
         [HttpGet]
         public ActionResult<ICollection<Food>> Get([FromHeader] Guid userId)
         {
-            var user = _context.Users.Find(userId);
-            if(user == null)
-            {
-                return StatusCode(404, "User not found");
-            }
-            return StatusCode(200, user.GetAllFoodFromBoard());
+            var boardId = _context
+                 .Users
+                 .Include(u => u.Boards)
+                 .FirstOrDefault(u => u.Id == userId)
+                 .Boards
+                 .FirstOrDefault()
+                 .Id;
+
+            var foodList = _context
+                .Foods
+                .Where(f => f.Board.Id == boardId)
+                .OrderBy(f=>f.ExpirationDate);
+
+            return StatusCode(200, foodList);
         }
 
         // GET api/values/5

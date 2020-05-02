@@ -24,9 +24,14 @@ namespace FoodStack.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<ICollection<Food>> Get([FromHeader] Guid userId)
         {
-            return new string[] { "value1", "value2" };
+            var user = _context.Users.Find(userId);
+            if(user == null)
+            {
+                return StatusCode(404, "User not found");
+            }
+            return StatusCode(200, user.GetAllFoodFromBoard());
         }
 
         // GET api/values/5
@@ -40,11 +45,21 @@ namespace FoodStack.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Food food, [FromHeader] Guid userId)
         {
-            var user = _context.Users.Find(userId);
+            var boardId = _context
+                .Users
+                .Include(u => u.Boards)
+                .FirstOrDefault(u => u.Id == userId)
+                .Boards
+                .FirstOrDefault()
+                .Id;
 
-            user.AddFood(food);
-
-            _context.Entry(food).State = EntityState.Added;
+            _context
+                .Boards
+                .Include(b => b.Food)
+                .FirstOrDefault(b=>b.Id == boardId)
+                .Food
+                .Add(food); 
+           
 
             await _context.SaveChangesAsync();
 

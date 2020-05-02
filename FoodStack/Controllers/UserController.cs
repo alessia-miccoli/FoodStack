@@ -36,6 +36,9 @@ namespace FoodStack.Controllers
             {
                 return StatusCode(200, existingUser);
             }
+
+            user.Boards = new List<Board> { new Board { Name = $"{user.Name} Default Board" } };
+
             _context.Users.Add(user);
 
             _context.SaveChanges();

@@ -12,5 +12,7 @@ namespace FoodStack.Models
         public int QuantityAvailable { get; set; }
         public int QuantityBooked { get; set; }
         public DateTime ExpirationDate { get; set; }
+
+        public virtual Board Board { get; set; }
     }
 }

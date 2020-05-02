@@ -18,18 +18,7 @@ namespace FoodStack.Models
 
         public User()
         {
-            Boards = new List<Board>
-            {
-                new Board($"{Name} Board")
-            };
         } 
-
-
-        public void AddFood(Food food)
-        {
-            //TODO: change when will add support to multiple boards
-            Boards.FirstOrDefault().Food.Add(food);
-        }
     }
 
     public enum LoginProvider { Google}

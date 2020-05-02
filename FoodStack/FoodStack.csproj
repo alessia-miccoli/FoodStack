@@ -21,6 +21,16 @@
     <Compile Remove="Migrations\20200501093629_AddFoodAndBoard.Designer.cs" />
     <Compile Remove="Migrations\20200501112311_CreateDb.cs" />
     <Compile Remove="Migrations\20200501112311_CreateDb.Designer.cs" />
+    <Compile Remove="Migrations\20200501115823_CreateDb.cs" />
+    <Compile Remove="Migrations\20200501115823_CreateDb.Designer.cs" />
+    <Compile Remove="Migrations\20200501193601_AddBoardToFood.cs" />
+    <Compile Remove="Migrations\20200501193601_AddBoardToFood.Designer.cs" />
+    <Compile Remove="Migrations\20200501194108_CreateDb.cs" />
+    <Compile Remove="Migrations\20200501194108_CreateDb.Designer.cs" />
+    <Compile Remove="Migrations\20200501194520_CreateDb.cs" />
+    <Compile Remove="Migrations\20200501194520_CreateDb.Designer.cs" />
+    <Compile Remove="Migrations\20200502114528_CreateDb.cs" />
+    <Compile Remove="Migrations\20200502114528_CreateDb.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

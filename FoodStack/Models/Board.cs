@@ -11,11 +11,11 @@ namespace FoodStack.Models
         public string Name {get;set;}
         public virtual ICollection<Food> Food { get; set; }
 
+        public virtual User User { get; set; }
 
-        public Board(string name)
+
+        public Board()
         {
-            this.Name = name;
-            Food = new List<Food>();
         }
     }
 }

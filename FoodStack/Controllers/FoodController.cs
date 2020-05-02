@@ -42,13 +42,6 @@ namespace FoodStack.Controllers
             return StatusCode(200, foodList);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/values
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Food food, [FromHeader] Guid userId)
@@ -82,8 +75,16 @@ namespace FoodStack.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(Guid id)
         {
+            var food = _context.Foods.FirstOrDefault(f => f.Id == id);
+            _context.Foods.Remove(food);
+
+            _context.Entry(food).State = EntityState.Deleted;
+            _context.SaveChanges();
+
+
+            return StatusCode(200, $"Food  deleted");
         }
     }
 }

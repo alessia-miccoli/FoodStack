@@ -10,9 +10,10 @@ namespace FoodStack.Models
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
-
         public DbSet<User> Users { get; set; }
         public DbSet<Board> Boards { get; set; }
         public DbSet<Food> Foods { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<FoodBooked> FoodsBooked { get; set; }
     }
 }

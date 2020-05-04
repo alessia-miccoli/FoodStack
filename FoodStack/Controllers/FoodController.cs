@@ -69,8 +69,55 @@ namespace FoodStack.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(Guid id, [FromForm] IFormCollection values)
         {
+            var foodToUpdate = _context.Foods.FirstOrDefault(f => f.Id == id);
+            if (values.ContainsKey("ExpirationDate"))
+            {
+                if (DateTime.TryParse(values["ExpirationDate"], out DateTime parsedDate))
+                {
+                    foodToUpdate.ExpirationDate = parsedDate;
+                }
+                else
+                {
+                    return StatusCode(400, "Cannot parse Expiration Date");
+                }
+            }
+
+            if (values.ContainsKey("Name"))
+            {
+                foodToUpdate.Name = values["Name"];
+            }
+
+            if (values.ContainsKey("QuantityAvailable"))
+            {
+                if (int.TryParse(values["QuantityAvailable"], out int quantityAvailable))
+                {
+                    foodToUpdate.QuantityAvailable = quantityAvailable;
+                }
+                else
+                {
+                    return StatusCode(400, "Cannot parse quantity available");
+                }
+            }
+
+            if (values.ContainsKey("QuantityBooked"))
+            {
+                if (int.TryParse(values["QuantityBooked"], out int quantityBooked))
+                {
+                    foodToUpdate.QuantityBooked = quantityBooked;
+                }
+                else
+                {
+                    return StatusCode(400, "Cannot parse quantity booked");
+                }
+            }
+
+            _context.Foods.Update(foodToUpdate);
+
+            _context.SaveChanges();
+
+            return StatusCode(200, "Food Updated");
         }
 
         // DELETE api/values/5

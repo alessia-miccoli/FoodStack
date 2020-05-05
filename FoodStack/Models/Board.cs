@@ -10,6 +10,7 @@ namespace FoodStack.Models
         public Guid Id { get; set; }
         public string Name {get;set;}
         public virtual ICollection<Food> Food { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; }
 
         public virtual User User { get; set; }
 

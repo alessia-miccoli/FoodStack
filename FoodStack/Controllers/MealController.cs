@@ -65,5 +65,43 @@ namespace FoodStack.Controllers
 
             return StatusCode(201, "Meal Created");
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(Guid id, [FromForm] IFormCollection values)
+        {
+            var mealToUpdate = _context.Meals.FirstOrDefault(m => m.Id == id);
+            if(mealToUpdate == null)
+            {
+                return StatusCode(404, "Meal not found");
+            }
+
+            if (values.ContainsKey("Date"))
+            {
+                if (DateTime.TryParse(values["Date"], out DateTime parsedDate))
+                {
+                    mealToUpdate.Date = parsedDate;
+                }
+                else
+                {
+                    return StatusCode(400, "Cannot parse Date");
+                }
+            }
+
+            if (values.ContainsKey("MealName"))
+            {
+                mealToUpdate.MealName = values["MealName"];
+            }
+
+            if (values.ContainsKey("DishName"))
+            {
+                mealToUpdate.DishName = values["DishName"];
+            }
+
+            _context.Update(mealToUpdate);
+
+            _context.SaveChanges();
+
+            return StatusCode(200, "Meal Updated");
+        }
     }
 }

@@ -103,5 +103,19 @@ namespace FoodStack.Controllers
 
             return StatusCode(200, "Meal Updated");
         }
+
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            var meal = _context.Meals.FirstOrDefault(m => m.Id == id);
+            _context.Meals.Remove(meal);
+
+            _context.Entry(meal).State = EntityState.Deleted;
+            _context.SaveChanges();
+
+
+            return StatusCode(200, $"Meal  deleted");
+        }
     }
 }

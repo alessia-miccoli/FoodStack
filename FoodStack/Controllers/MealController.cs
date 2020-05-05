@@ -36,7 +36,8 @@ namespace FoodStack.Controllers
                 .Boards
                 .Include(b=>b.Meals)
                 .FirstOrDefault(b => b.Id == boardId)
-                .Meals;
+                .Meals
+                .OrderBy(m=>m.Date);
 
             return StatusCode(200, meals);
         }

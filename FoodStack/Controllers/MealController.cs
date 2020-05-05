@@ -21,8 +21,27 @@ namespace FoodStack.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public ActionResult<ICollection<Meal>> Get([FromHeader]Guid userId)
+        {
+            var boardId = _context
+                .Users
+                .Include(u => u.Boards)
+                .FirstOrDefault(u => u.Id == userId)
+                .Boards
+                .FirstOrDefault()
+                .Id;
 
-        // POST api/values
+            var meals = _context
+                .Boards
+                .Include(b=>b.Meals)
+                .FirstOrDefault(b => b.Id == boardId)
+                .Meals;
+
+            return StatusCode(200, meals);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Meal meal, [FromHeader] Guid userId)
         {

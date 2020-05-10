@@ -12,5 +12,6 @@ namespace FoodStack.Models
         public string DishName { get; set; }
         public virtual ICollection<FoodBooked> FoodsBooked { get; set; }
         public DateTime Date { get; set; }
+        public Guid BoardId { get; set; }
     }
 }

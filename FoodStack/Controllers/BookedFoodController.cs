@@ -53,11 +53,33 @@ namespace FoodStack.Controllers
 
             if(existingBookedFood!= null)
             {
-                existingBookedFood.QuantityBooked += foodBooked.QuantityBooked;
-                _context.FoodsBooked.Update(existingBookedFood);
+                var remainingQuantityBooked = existingBookedFood.QuantityBooked + foodBooked.QuantityBooked;
+
+                if (remainingQuantityBooked == 0)
+                {
+                    _context.FoodsBooked.Remove(existingBookedFood);
+                }
+                else if(remainingQuantityBooked< 0)
+                {
+                    return StatusCode(500,
+                    $"Cannot unbook {foodBooked.QuantityBooked} of {food.Name}, " +
+                    $"currently 0 is booked");
+                }
+                else
+                {
+                    existingBookedFood.QuantityBooked += foodBooked.QuantityBooked;
+                    _context.FoodsBooked.Update(existingBookedFood);
+                }
             }
             else
             {
+                if(foodBooked.QuantityBooked < 0)
+                {
+                    return StatusCode(500,
+                    $"Cannot unbook {foodBooked.QuantityBooked} of {food.Name}, " +
+                    $"currently 0 is booked");
+                }
+
                 meal.FoodsBooked.Add(foodBooked);
             }
 
@@ -67,7 +89,7 @@ namespace FoodStack.Controllers
             _context.Update(meal);
             _context.SaveChanges();
 
-            return StatusCode(200, "Food added to meal");
+            return StatusCode(200, "Food in meal updated");
         }
     }
 }
